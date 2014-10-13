@@ -9,19 +9,20 @@ import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import com.github.adnansm.timelytextview.TimelyView;
+import com.github.adnansm.timelytextview.model.Characters;
 import com.nineoldandroids.animation.ObjectAnimator;
 
 public class MainActivity extends Activity {
     public static final int            DURATION       = 1000;
-    public static final int            NO_VALUE       = -1;
+    public static final char           NO_VALUE       = '0';
     private             TimelyView     timelyView     = null;
     private             SeekBar        seekBar        = null;
     private             Spinner        fromSpinner    = null;
     private             Spinner        toSpinner      = null;
     private volatile    ObjectAnimator objectAnimator = null;
 
-    private volatile int from = NO_VALUE;
-    private volatile int to   = NO_VALUE;
+    private volatile char from = NO_VALUE;
+    private volatile char to   = NO_VALUE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class MainActivity extends Activity {
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                from = position - 1;
+                from = Characters.charAt(position - 1);
                 if(to != NO_VALUE && to != NO_VALUE) {
                     objectAnimator = timelyView.animate(from, to);
                     objectAnimator.setDuration(DURATION);
@@ -55,7 +56,7 @@ public class MainActivity extends Activity {
         toSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                to = position - 1;
+                to = Characters.charAt(position - 1);
                 if(from != NO_VALUE && to != NO_VALUE) {
                     objectAnimator = timelyView.animate(from, to);
                     objectAnimator.setDuration(DURATION);

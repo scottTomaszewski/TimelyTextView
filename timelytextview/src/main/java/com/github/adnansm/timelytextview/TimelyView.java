@@ -8,7 +8,7 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.View;
 import com.github.adnansm.timelytextview.animation.TimelyEvaluator;
-import com.github.adnansm.timelytextview.model.NumberUtils;
+import com.github.adnansm.timelytextview.model.Characters;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.util.Property;
 
@@ -53,16 +53,16 @@ public class TimelyView extends View {
         invalidate();
     }
 
-    public ObjectAnimator animate(int start, int end) {
-        float[][] startPoints = NumberUtils.getControlPointsFor(start);
-        float[][] endPoints = NumberUtils.getControlPointsFor(end);
+    public ObjectAnimator animate(char start, char end) {
+        float[][] startPoints = Characters.getControlPointsFor(start);
+        float[][] endPoints = Characters.getControlPointsFor(end);
 
         return ObjectAnimator.ofObject(this, CONTROL_POINTS_PROPERTY, new TimelyEvaluator(), startPoints, endPoints);
     }
 
-    public ObjectAnimator animate(int end) {
-        float[][] startPoints = NumberUtils.getControlPointsFor(-1);
-        float[][] endPoints = NumberUtils.getControlPointsFor(end);
+    public ObjectAnimator animate(char end) {
+        float[][] startPoints = Characters.getControlPointsFor('0');
+        float[][] endPoints = Characters.getControlPointsFor(end);
 
         return ObjectAnimator.ofObject(this, CONTROL_POINTS_PROPERTY, new TimelyEvaluator(), startPoints, endPoints);
     }
