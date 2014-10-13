@@ -8,21 +8,22 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+
 import com.github.adnansm.timelytextview.TimelyView;
 import com.github.adnansm.timelytextview.model.Characters;
 import com.nineoldandroids.animation.ObjectAnimator;
 
 public class MainActivity extends Activity {
-    public static final int            DURATION       = 1000;
-    public static final char           NO_VALUE       = '0';
-    private             TimelyView     timelyView     = null;
-    private             SeekBar        seekBar        = null;
-    private             Spinner        fromSpinner    = null;
-    private             Spinner        toSpinner      = null;
-    private volatile    ObjectAnimator objectAnimator = null;
+    public static final int DURATION = 1000;
+    public static final char NO_VALUE = '0';
+    private TimelyView timelyView = null;
+    private SeekBar seekBar = null;
+    private Spinner fromSpinner = null;
+    private Spinner toSpinner = null;
+    private volatile ObjectAnimator objectAnimator = null;
 
     private volatile char from = NO_VALUE;
-    private volatile char to   = NO_VALUE;
+    private volatile char to = NO_VALUE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class MainActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 from = Characters.charAt(position - 1);
-                if(to != NO_VALUE && to != NO_VALUE) {
+                if (to != NO_VALUE && to != NO_VALUE) {
                     objectAnimator = timelyView.animate(from, to);
                     objectAnimator.setDuration(DURATION);
                 } else {
@@ -57,7 +58,7 @@ public class MainActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 to = Characters.charAt(position - 1);
-                if(from != NO_VALUE && to != NO_VALUE) {
+                if (from != NO_VALUE && to != NO_VALUE) {
                     objectAnimator = timelyView.animate(from, to);
                     objectAnimator.setDuration(DURATION);
                 } else {
@@ -75,7 +76,7 @@ public class MainActivity extends Activity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if(objectAnimator != null) objectAnimator.setCurrentPlayTime(progress);
+                if (objectAnimator != null) objectAnimator.setCurrentPlayTime(progress);
             }
 
             @Override

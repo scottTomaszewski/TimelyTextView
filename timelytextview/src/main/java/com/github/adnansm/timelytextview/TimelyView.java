@@ -7,13 +7,14 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.View;
+
 import com.github.adnansm.timelytextview.animation.TimelyEvaluator;
 import com.github.adnansm.timelytextview.model.Characters;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.util.Property;
 
 public class TimelyView extends View {
-    private static final float                           RATIO                   = 1f;
+    private static final float RATIO = 1f;
     private static final Property<TimelyView, float[][]> CONTROL_POINTS_PROPERTY = new Property<TimelyView, float[][]>(float[][].class, "controlPoints") {
         @Override
         public float[][] get(TimelyView object) {
@@ -25,9 +26,9 @@ public class TimelyView extends View {
             object.setControlPoints(value);
         }
     };
-    private              Paint                           mPaint                  = null;
-    private              Path                            mPath                   = null;
-    private              float[][]                       controlPoints           = null;
+    private Paint mPaint = null;
+    private Path mPath = null;
+    private float[][] controlPoints = null;
 
     public TimelyView(Context context) {
         super(context);
@@ -83,8 +84,8 @@ public class TimelyView extends View {
         mPath.moveTo(minDimen * controlPoints[0][0], minDimen * controlPoints[0][1]);
         for (int i = 1; i < length; i += 3) {
             mPath.cubicTo(minDimen * controlPoints[i][0], minDimen * controlPoints[i][1],
-                          minDimen * controlPoints[i + 1][0], minDimen * controlPoints[i + 1][1],
-                          minDimen * controlPoints[i + 2][0], minDimen * controlPoints[i + 2][1]);
+                    minDimen * controlPoints[i + 1][0], minDimen * controlPoints[i + 1][1],
+                    minDimen * controlPoints[i + 2][0], minDimen * controlPoints[i + 2][1]);
         }
         canvas.drawPath(mPath, mPaint);
     }
