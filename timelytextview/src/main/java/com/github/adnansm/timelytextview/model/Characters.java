@@ -1,5 +1,6 @@
 package com.github.adnansm.timelytextview.model;
 
+import com.github.adnansm.timelytextview.SvgPath;
 import com.github.adnansm.timelytextview.model.number.Eight;
 import com.github.adnansm.timelytextview.model.number.Five;
 import com.github.adnansm.timelytextview.model.number.Four;
@@ -14,7 +15,11 @@ import com.github.adnansm.timelytextview.model.number.Zero;
 import java.security.InvalidParameterException;
 
 public class Characters {
-    public static float[][] getControlPointsFor(char start) {
+    public static SvgPath getControlPointsFor(char start) {
+        return new SvgPath(get(start));
+    }
+
+    public static float[][] get(char start) {
         switch (start) {
             case 0:
                 return Zero.getInstance().getControlPoints();

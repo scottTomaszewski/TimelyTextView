@@ -15,21 +15,23 @@ import com.nineoldandroids.util.Property;
 
 public class TimelyView extends View {
     private static final float RATIO = 1f;
-    private static final Property<TimelyView, float[][]> CONTROL_POINTS_PROPERTY =
-            new Property<TimelyView, float[][]>(float[][].class, "controlPoints") {
+
+    private static final Property<TimelyView, SvgPath> PATH_POINTS =
+            new Property<TimelyView, SvgPath>(SvgPath.class, "pathPoints") {
                 @Override
-                public float[][] get(TimelyView object) {
-                    return object.getControlPoints();
+                public SvgPath get(TimelyView object) {
+                    return object.getPath();
                 }
 
                 @Override
-                public void set(TimelyView object, float[][] value) {
-                    object.setControlPoints(value);
+                public void set(TimelyView object, SvgPath value) {
+                    object.setPath(value);
                 }
             };
+
     private Paint mPaint = null;
     private Path mPath = null;
-    private float[][] controlPoints = null;
+    private SvgPath path = null;
 
     public TimelyView(Context context) {
         super(context);
@@ -46,33 +48,34 @@ public class TimelyView extends View {
         init();
     }
 
-    public float[][] getControlPoints() {
-        return controlPoints;
+    private SvgPath getPath() {
+        return path;
     }
 
-    public void setControlPoints(float[][] controlPoints) {
-        this.controlPoints = controlPoints;
+    private void setPath(SvgPath value) {
+        this.path = value;
         invalidate();
     }
 
     public ObjectAnimator animate(char start, char end) {
-        float[][] startPoints = Characters.getControlPointsFor(start);
-        float[][] endPoints = Characters.getControlPointsFor(end);
+        SvgPath startPoints = Characters.getControlPointsFor(start);
+        SvgPath endPoints = Characters.getControlPointsFor(end);
 
-        return ObjectAnimator.ofObject(this, CONTROL_POINTS_PROPERTY, new TimelyEvaluator(), startPoints, endPoints);
+        return ObjectAnimator.ofObject(this, PATH_POINTS, new TimelyEvaluator(), startPoints, endPoints);
     }
 
     public ObjectAnimator animate(char end) {
-        float[][] startPoints = Characters.getControlPointsFor('0');
-        float[][] endPoints = Characters.getControlPointsFor(end);
+        SvgPath startPoints = Characters.getControlPointsFor('0');
+        SvgPath endPoints = Characters.getControlPointsFor(end);
 
-        return ObjectAnimator.ofObject(this, CONTROL_POINTS_PROPERTY, new TimelyEvaluator(), startPoints, endPoints);
+        return ObjectAnimator.ofObject(this, PATH_POINTS, new TimelyEvaluator(), startPoints, endPoints);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (controlPoints == null) return;
+        if (path == null) return;
+        float[][] controlPoints = path.get();
 
         int length = controlPoints.length;
 
