@@ -15,17 +15,18 @@ import com.nineoldandroids.util.Property;
 
 public class TimelyView extends View {
     private static final float RATIO = 1f;
-    private static final Property<TimelyView, float[][]> CONTROL_POINTS_PROPERTY = new Property<TimelyView, float[][]>(float[][].class, "controlPoints") {
-        @Override
-        public float[][] get(TimelyView object) {
-            return object.getControlPoints();
-        }
+    private static final Property<TimelyView, float[][]> CONTROL_POINTS_PROPERTY =
+            new Property<TimelyView, float[][]>(float[][].class, "controlPoints") {
+                @Override
+                public float[][] get(TimelyView object) {
+                    return object.getControlPoints();
+                }
 
-        @Override
-        public void set(TimelyView object, float[][] value) {
-            object.setControlPoints(value);
-        }
-    };
+                @Override
+                public void set(TimelyView object, float[][] value) {
+                    object.setControlPoints(value);
+                }
+            };
     private Paint mPaint = null;
     private Path mPath = null;
     private float[][] controlPoints = null;
@@ -97,9 +98,9 @@ public class TimelyView extends View {
         int width = getMeasuredWidth();
         int height = getMeasuredHeight();
         int widthWithoutPadding = width - getPaddingLeft() - getPaddingRight();
-        int heigthWithoutPadding = height - getPaddingTop() - getPaddingBottom();
+        int heightWithoutPadding = height - getPaddingTop() - getPaddingBottom();
 
-        int maxWidth = (int) (heigthWithoutPadding * RATIO);
+        int maxWidth = (int) (heightWithoutPadding * RATIO);
         int maxHeight = (int) (widthWithoutPadding / RATIO);
 
         if (widthWithoutPadding > maxWidth) {
