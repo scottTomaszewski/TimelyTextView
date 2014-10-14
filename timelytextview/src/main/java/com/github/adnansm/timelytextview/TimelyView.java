@@ -83,8 +83,8 @@ public class TimelyView extends View {
         float minDimen = height > width ? width : height;
         Adjustment adjust = new Adjustment(minDimen);
 
-        mPath.reset();
         for (Cubic c : controlPoints) {
+            mPath.reset();
             mPath.moveTo(adjust.d(controlPoints.get(0).startX), adjust.d(controlPoints.get(0).startY));
             mPath.cubicTo(
                     adjust.d(c.control1X), adjust.d(c.control1Y),
