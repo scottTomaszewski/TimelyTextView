@@ -26,8 +26,9 @@ public class SvgPathTweening implements TypeEvaluator<SvgPath> {
 
     private void fill(List<Cubic> path, int toFill) {
         Cubic last = path.size() != 0 ? path.get(path.size() - 1) : new Cubic(0, 0, 0, 0, 0, 0, 0, 0);
+        boolean flip = false;
         while (path.size() < toFill) {
-            path.add(last);
+            path.add(flip ? last.swap() : last);
         }
     }
 

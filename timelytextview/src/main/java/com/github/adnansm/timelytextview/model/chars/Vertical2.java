@@ -6,7 +6,7 @@ import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 
-public class Vertical {
+public class Vertical2 {
     // 1 (one)
     //M199 1165
     // l397 297
@@ -18,7 +18,7 @@ public class Vertical {
     // q-15 -15 -31 -29
     // t-309 -243
     // z
-    private static final double max = 2048;
+    private static final double max = 1600;
     public static final SvgPath commands = path();
 
     private static SvgPath path() {
@@ -63,7 +63,7 @@ public class Vertical {
 
         ArrayList<Cubic> normalized = Lists.newArrayList();
         for (Cubic c : cubics) {
-            normalized.add(c.normalizeWithMax(max).flipAlongHorizontal());
+            normalized.add(c.normalizeWithMax(max).flipAlongVertical());
         }
         return new SvgPath(normalized);
     }

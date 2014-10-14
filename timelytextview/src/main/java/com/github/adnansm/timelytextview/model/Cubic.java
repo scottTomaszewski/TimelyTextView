@@ -23,4 +23,32 @@ public class Cubic {
         this.endX = endX;
         this.endY = endY;
     }
+
+    public Cubic normalizeWithMax(double maxValue) {
+        return new Cubic(startX / maxValue, startY / maxValue,
+                control1X / maxValue, control1Y / maxValue,
+                control2X / maxValue, control2Y / maxValue,
+                endX / maxValue, endY / maxValue);
+    }
+
+    public Cubic flipAlongVertical() {
+        return new Cubic(1 - startX, startY,
+                1 - control1X, control1Y,
+                1 - control2X, control2Y,
+                1 - endX, endY);
+    }
+
+    public Cubic flipAlongHorizontal() {
+        return new Cubic(startX, 1 - startY,
+                control1X, 1 - control1Y,
+                control2X, 1 - control2Y,
+                endX, 1 - endY);
+    }
+
+    public Cubic swap() {
+        return new Cubic(endX, endY,
+                control2X, control2Y,
+                control1X, control1Y,
+                startX, startY);
+    }
 }

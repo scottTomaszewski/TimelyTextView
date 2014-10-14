@@ -1,11 +1,11 @@
 package com.github.adnansm.timelytextview.model;
 
 import com.github.adnansm.timelytextview.SvgPath;
-import com.github.adnansm.timelytextview.model.chars.Horizontal;
 import com.github.adnansm.timelytextview.model.chars.Vertical;
+import com.github.adnansm.timelytextview.model.chars.Vertical2;
 
 public class Char {
     public static SvgPath pathOf(char c) {
-        return c == '|' ? Horizontal.commands : Vertical.commands;
+        return c == '|' ? Vertical2.commands : Vertical.commands;
     }
 }
