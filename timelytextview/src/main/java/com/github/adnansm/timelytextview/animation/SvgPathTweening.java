@@ -13,11 +13,22 @@ public class SvgPathTweening implements TypeEvaluator<SvgPath> {
         List<Cubic> starts = startPath.get();
         List<Cubic> ends = endPath.get();
 
+        int max = Math.max(starts.size(), ends.size());
+        fill(starts, max);
+        fill(ends, max);
+
         List<Cubic> tweened = Lists.newArrayList();
-        for(int i = 0; i < starts.size(); i++) {
+        for (int i = 0; i < max; i++) {
             tweened.add(tween(fraction, starts.get(i), ends.get(i)));
         }
         return new SvgPath(tweened);
+    }
+
+    private void fill(List<Cubic> path, int toFill) {
+        Cubic last = path.size() != 0 ? path.get(path.size() - 1) : new Cubic(0, 0, 0, 0, 0, 0, 0, 0);
+        while (path.size() < toFill) {
+            path.add(last);
+        }
     }
 
     private Cubic tween(float fraction, Cubic start, Cubic end) {
