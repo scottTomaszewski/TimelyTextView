@@ -8,7 +8,7 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.github.adnansm.timelytextview.animation.CubicTweening;
+import com.github.adnansm.timelytextview.animation.SvgPathTweening;
 import com.github.adnansm.timelytextview.model.Char;
 import com.github.adnansm.timelytextview.model.Cubic;
 import com.nineoldandroids.animation.ObjectAnimator;
@@ -64,7 +64,7 @@ public class TimelyView extends View {
         SvgPath startPoints = Char.pathOf(start);
         SvgPath endPoints = Char.pathOf(end);
 
-        return ObjectAnimator.ofObject(this, PATH_POINTS, new CubicTweening(), startPoints, endPoints);
+        return ObjectAnimator.ofObject(this, PATH_POINTS, new SvgPathTweening(), startPoints, endPoints);
     }
 
     public ObjectAnimator animate(char end) {

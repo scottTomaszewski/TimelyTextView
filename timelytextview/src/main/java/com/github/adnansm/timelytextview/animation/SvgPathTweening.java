@@ -7,7 +7,7 @@ import com.nineoldandroids.animation.TypeEvaluator;
 
 import java.util.List;
 
-public class CubicTweening implements TypeEvaluator<SvgPath> {
+public class SvgPathTweening implements TypeEvaluator<SvgPath> {
     @Override
     public SvgPath evaluate(float fraction, SvgPath startPath, SvgPath endPath) {
         List<Cubic> starts = startPath.get();
