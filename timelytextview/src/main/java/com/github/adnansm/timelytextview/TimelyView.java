@@ -8,10 +8,13 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.github.adnansm.timelytextview.animation.TimelyEvaluator;
-import com.github.adnansm.timelytextview.model.Characters;
+import com.github.adnansm.timelytextview.animation.CubicTweening;
+import com.github.adnansm.timelytextview.model.Char;
+import com.github.adnansm.timelytextview.model.Cubic;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.util.Property;
+
+import java.util.List;
 
 public class TimelyView extends View {
     private static final float RATIO = 1f;
@@ -58,38 +61,36 @@ public class TimelyView extends View {
     }
 
     public ObjectAnimator animate(char start, char end) {
-        SvgPath startPoints = Characters.getControlPointsFor(start);
-        SvgPath endPoints = Characters.getControlPointsFor(end);
+        SvgPath startPoints = Char.pathOf(start);
+        SvgPath endPoints = Char.pathOf(end);
 
-        return ObjectAnimator.ofObject(this, PATH_POINTS, new TimelyEvaluator(), startPoints, endPoints);
+        return ObjectAnimator.ofObject(this, PATH_POINTS, new CubicTweening(), startPoints, endPoints);
     }
 
     public ObjectAnimator animate(char end) {
-        SvgPath startPoints = Characters.getControlPointsFor('0');
-        SvgPath endPoints = Characters.getControlPointsFor(end);
-
-        return ObjectAnimator.ofObject(this, PATH_POINTS, new TimelyEvaluator(), startPoints, endPoints);
+        return animate('|', end);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (path == null) return;
-        float[][] controlPoints = path.get();
-
-        int length = controlPoints.length;
+        List<Cubic> controlPoints = path.get();
 
         int height = getMeasuredHeight();
         int width = getMeasuredWidth();
 
         float minDimen = height > width ? width : height;
+        Adjustment adjust = new Adjustment(minDimen);
 
         mPath.reset();
-        mPath.moveTo(minDimen * controlPoints[0][0], minDimen * controlPoints[0][1]);
-        for (int i = 1; i < length; i += 3) {
-            mPath.cubicTo(minDimen * controlPoints[i][0], minDimen * controlPoints[i][1],
-                    minDimen * controlPoints[i + 1][0], minDimen * controlPoints[i + 1][1],
-                    minDimen * controlPoints[i + 2][0], minDimen * controlPoints[i + 2][1]);
+        mPath.moveTo(adjust.d(controlPoints.get(0).startX), adjust.d(controlPoints.get(0).startY));
+
+        for (Cubic c : controlPoints) {
+            mPath.cubicTo(
+                    adjust.d(c.control1X), adjust.d(c.control1Y),
+                    adjust.d(c.control2X), adjust.d(c.control2Y),
+                    adjust.d(c.endX), adjust.d(c.endY));
         }
         canvas.drawPath(mPath, mPaint);
     }
@@ -123,5 +124,17 @@ public class TimelyView extends View {
         mPaint.setStrokeWidth(5.0f);
         mPaint.setStyle(Paint.Style.STROKE);
         mPath = new Path();
+    }
+
+    private static final class Adjustment {
+        private final float minDimension;
+
+        private Adjustment(float minDimension) {
+            this.minDimension = minDimension;
+        }
+
+        private float d(double toAdjust) {
+            return (float) (minDimension * toAdjust);
+        }
     }
 }

@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                from = Characters.charAt(position - 1);
+                from = '|';
                 if (to != NO_VALUE && to != NO_VALUE) {
                     objectAnimator = timelyView.animate(from, to);
                     objectAnimator.setDuration(DURATION);
@@ -57,7 +57,7 @@ public class MainActivity extends Activity {
         toSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                to = Characters.charAt(position - 1);
+                to = 'a';
                 if (from != NO_VALUE && to != NO_VALUE) {
                     objectAnimator = timelyView.animate(from, to);
                     objectAnimator.setDuration(DURATION);

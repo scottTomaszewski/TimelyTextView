@@ -1,13 +1,17 @@
 package com.github.adnansm.timelytextview;
 
-public class SvgPath {
-    private final float[][] controlPoints;
+import com.github.adnansm.timelytextview.model.Cubic;
 
-    public SvgPath(float[][] controlPoints) {
-        this.controlPoints = controlPoints;
+import java.util.List;
+
+public class SvgPath {
+    private final List<Cubic> path;
+
+    public SvgPath(List<Cubic> path) {
+        this.path = path;
     }
 
-    public float[][] get() {
-        return controlPoints;
+    public List<Cubic> get() {
+        return path;
     }
 }
