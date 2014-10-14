@@ -2,6 +2,8 @@ apply plugin: 'android-library'
 
 dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
+    compile 'org.apache.xmlgraphics:batik-parser:1.7'
+    compile 'com.google.guava:guava:18.0'
 }
 
 android {

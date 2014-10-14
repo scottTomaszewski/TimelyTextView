@@ -1,5 +1,7 @@
 package com.github.adnansm.timelytextview.animation;
 
+import android.graphics.Path;
+
 import com.github.adnansm.timelytextview.SvgPath;
 import com.nineoldandroids.animation.TypeEvaluator;
 
@@ -8,11 +10,15 @@ public class TimelyEvaluator implements TypeEvaluator<SvgPath> {
 
     @Override
     public SvgPath evaluate(float fraction, SvgPath start, SvgPath end) {
+
         float[][] startValue = start.get();
         float[][] endValue = end.get();
 
         int pointsCount = startValue.length;
         initCache(pointsCount);
+
+        new Path();
+
 
         for (int i = 0; i < pointsCount; i++) {
             _cachedPoints[i][0] = startValue[i][0] + fraction * (endValue[i][0] - startValue[i][0]);
@@ -27,5 +33,4 @@ public class TimelyEvaluator implements TypeEvaluator<SvgPath> {
             _cachedPoints = new float[pointsCount][2];
         }
     }
-
 }
