@@ -21,14 +21,18 @@ public class CubicTweening implements TypeEvaluator<SvgPath> {
     }
 
     private Cubic tween(float fraction, Cubic start, Cubic end) {
-        double sX = start.startX + fraction * end.startX;
-        double sY = start.startY + fraction * end.startY;
-        double c1X = start.control1X + fraction * end.control1X;
-        double c1Y = start.control1Y + fraction * end.control1Y;
-        double c2X = start.control2X + fraction * end.control2X;
-        double c2Y = start.control2Y + fraction * end.control2Y;
-        double eX = start.endX+ fraction * end.endX;
-        double eY = start.endY + fraction * end.endY;
+        double sX = tween(fraction, start.startX, end.startX);
+        double sY = tween(fraction, start.startY, end.startY);
+        double c1X = tween(fraction, start.control1X, end.control1X);
+        double c1Y = tween(fraction, start.control1Y, end.control1Y);
+        double c2X = tween(fraction, start.control2X, end.control2X);
+        double c2Y = tween(fraction, start.control2Y, end.control2Y);
+        double eX = tween(fraction, start.endX, end.endX);
+        double eY = tween(fraction, start.endY, end.endY);
         return new Cubic(sX, sY, c1X, c1Y, c2X, c2Y, eX, eY);
+    }
+
+    private double tween(double fraction, double start, double end) {
+        return start + fraction * (end - start);
     }
 }

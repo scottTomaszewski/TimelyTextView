@@ -6,6 +6,6 @@ import com.google.common.collect.Lists;
 
 public class Vertical {
     public static final SvgPath commands = new SvgPath(Lists.newArrayList(
-            new Cubic(.5, .1, .6, .2, .6, .8, .5, .9)
+            new Cubic(.5, .1, .7, .2, .7, .8, .5, .9)
     ));
 }
