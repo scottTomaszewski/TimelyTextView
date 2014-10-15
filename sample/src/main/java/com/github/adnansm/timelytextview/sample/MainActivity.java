@@ -2,6 +2,7 @@ package com.github.adnansm.timelytextview.sample;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,6 +42,7 @@ public class MainActivity extends Activity {
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("", "moo");
                 from = '|';
                 if (to != NO_VALUE && to != NO_VALUE) {
                     objectAnimator = timelyView.animate(from, to);

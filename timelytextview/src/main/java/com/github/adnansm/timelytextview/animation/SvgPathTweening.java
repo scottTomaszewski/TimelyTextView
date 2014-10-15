@@ -21,7 +21,7 @@ public class SvgPathTweening implements TypeEvaluator<SvgPath> {
         for (int i = 0; i < max; i++) {
             tweened.add(tween(fraction, starts.get(i), ends.get(i)));
         }
-        return new SvgPath(tweened);
+        return SvgPath.from(tweened, '?');
     }
 
     private void fill(List<Cubic> path, int toFill) {

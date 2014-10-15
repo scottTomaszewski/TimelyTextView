@@ -1,5 +1,7 @@
 package com.github.adnansm.timelytextview.svg;
 
+import android.util.Log;
+
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -14,16 +16,15 @@ public class PathParsing {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', ',', '-');
 
     private final String source;
-    private final double unitsPerEm;
 
-    public PathParsing(String pathDescriptions, double unitsPerEm) {
+    public PathParsing(String pathDescriptions) {
         this.source = pathDescriptions;
-        this.unitsPerEm = unitsPerEm;
     }
 
     public void parseUsing(PathCommandToCubicHandling toCubic) {
         List<String> commands = breakDown(source);
         for (String command : commands) {
+            Log.d("Parsing", command);
             // ignore command character
             List<Float> args = argsOf(command.substring(1));
 
@@ -101,23 +102,25 @@ public class PathParsing {
         List<String> commands = Lists.newArrayList();
         String tail = source;
         while (!tail.isEmpty()) {
+            Log.d("Parsing", tail);
             if (!COMMANDS.contains(tail.charAt(0))) {
                 throw new IllegalArgumentException("Unsupported command: " + tail.charAt(0));
             }
             int nextCommandIndex = indexOfNextCommandOrNegative(tail);
-            if (!(nextCommandIndex < 0)) {
+            if (nextCommandIndex < 0) {
                 // no more commands
                 break;
             }
-            String commandWithArgs = tail.substring(0, nextCommandIndex - 1);
+            String commandWithArgs = tail.substring(0, nextCommandIndex);
             commands.add(commandWithArgs);
             tail = tail.substring(nextCommandIndex);
+            Log.d("Parsing", "substring: " + tail);
         }
         return commands;
     }
 
     private int indexOfNextCommandOrNegative(String tail) {
-        for (int i = 0; i < tail.length(); i++) {
+        for (int i = 1; i < tail.length(); i++) {
             char maybe = tail.charAt(i);
             if (COMMANDS.contains(maybe)) {
                 return i;

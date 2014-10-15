@@ -1,11 +1,14 @@
 package com.github.adnansm.timelytextview.model;
 
-import com.github.adnansm.timelytextview.svg.SvgPath;
+import android.util.Log;
+
+import com.github.adnansm.timelytextview.model.chars.A;
 import com.github.adnansm.timelytextview.model.chars.Vertical;
-import com.github.adnansm.timelytextview.model.chars.Vertical2;
+import com.github.adnansm.timelytextview.svg.SvgPath;
 
 public class Char {
     public static SvgPath pathOf(char c) {
-        return c == '|' ? Vertical2.commands : Vertical.commands;
+        Log.d("foo", "foo");
+        return c == '|' ? A.PATH : Vertical.commands;
     }
 }

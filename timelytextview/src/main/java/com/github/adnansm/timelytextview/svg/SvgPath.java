@@ -1,7 +1,11 @@
 package com.github.adnansm.timelytextview.svg;
 
-import com.github.adnansm.timelytextview.model.Cubic;
+import android.util.Log;
 
+import com.github.adnansm.timelytextview.model.Cubic;
+import com.google.common.collect.Lists;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class SvgPath {
@@ -23,10 +27,14 @@ public abstract class SvgPath {
         return new SvgPath() {
             @Override
             public List<Cubic> getPath() {
-
+                Log.d("SvgPath", "Starting");
                 PathCommandToCubicHandling toCubic = new PathCommandToCubicHandling();
-                new PathParsing(pathDescriptions, unitsPerEm).parseUsing(toCubic);
-                return toCubic.getPathAsCubics();
+                new PathParsing(pathDescriptions).parseUsing(toCubic);
+                ArrayList<Cubic> normalized = Lists.newArrayList();
+                for (Cubic c : toCubic.getPathAsCubics()) {
+                    normalized.add(c.normalizeWithMax(unitsPerEm).flipAlongHorizontal());
+                }
+                return normalized;
             }
 
             @Override
