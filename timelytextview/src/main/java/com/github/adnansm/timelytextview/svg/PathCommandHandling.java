@@ -45,6 +45,8 @@ public abstract class PathCommandHandling {
         lastControlPoint = handle_m(d_endX, d_endY);
         lastX = lastX + d_endX;
         lastY = lastY + d_endY;
+        firstX = lastX + d_endX;
+        firstY = lastY + d_endY;
     }
 
     final void process_L(int endX, int endY) {
