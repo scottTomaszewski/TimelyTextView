@@ -65,6 +65,6 @@ public class Vertical2 {
         for (Cubic c : cubics) {
             normalized.add(c.normalizeWithMax(max).flipAlongVertical());
         }
-        return new SvgPath(normalized);
+        return SvgPath.from(normalized, '1');
     }
 }

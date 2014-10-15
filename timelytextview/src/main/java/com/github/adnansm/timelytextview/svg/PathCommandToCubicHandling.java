@@ -1,6 +1,6 @@
 package com.github.adnansm.timelytextview.svg;
 
-import android.graphics.Point;
+import android.graphics.PointF;
 
 import com.github.adnansm.timelytextview.model.Cubic;
 import com.google.common.collect.Lists;
@@ -11,120 +11,120 @@ public class PathCommandToCubicHandling extends PathCommandHandling {
     private final List<Cubic> all = Lists.newArrayList();
 
     @Override
-    protected Point handle_M(int endX, int endY) {
-        return new Point(endX, endY);
+    protected PointF handle_M(float endX, float endY) {
+        return new PointF(endX, endY);
     }
 
     @Override
-    protected Point handle_m(int d_endX, int d_endY) {
-        return new Point(lastX() + d_endX, lastY() + d_endY);
+    protected PointF handle_m(float d_endX, float d_endY) {
+        return new PointF(lastX() + d_endX, lastY() + d_endY);
     }
 
     @Override
-    protected Point handle_L(int endX, int endY) {
+    protected PointF handle_L(float endX, float endY) {
         all.add(new Cubic(lastX(), lastY(), lastX(), lastY(),
                 endX, endY, endX, endY));
-        return new Point(endX, endY);
+        return new PointF(endX, endY);
     }
 
     @Override
-    protected Point handle_l(int d_endX, int d_endY) {
+    protected PointF handle_l(float d_endX, float d_endY) {
         all.add(new Cubic(lastX(), lastY(), lastX(), lastY(),
                 lastX() + d_endX, lastY() + d_endY, lastX() + d_endX, lastY() + d_endY));
-        return new Point(lastX() + d_endX, lastY() + d_endY);
+        return new PointF(lastX() + d_endX, lastY() + d_endY);
     }
 
     @Override
-    protected Point handle_H(int endX) {
+    protected PointF handle_H(float endX) {
         all.add(new Cubic(lastX(), lastY(), lastX(), lastY(),
                 endX, lastY(), endX, lastY()));
-        return new Point(endX, lastY());
+        return new PointF(endX, lastY());
     }
 
     @Override
-    protected Point handle_h(int d_endX) {
+    protected PointF handle_h(float d_endX) {
         all.add(new Cubic(lastX(), lastY(), lastX(), lastY(),
                 lastX() + d_endX, lastY(), lastX() + d_endX, lastY()));
-        return new Point(lastX() + d_endX, lastY());
+        return new PointF(lastX() + d_endX, lastY());
     }
 
     @Override
-    protected Point handle_V(int endY) {
+    protected PointF handle_V(float endY) {
         all.add(new Cubic(lastX(), lastY(), lastX(), lastY(),
                 lastX(), endY, lastX(), endY));
-        return new Point(lastX(), endY);
+        return new PointF(lastX(), endY);
     }
 
     @Override
-    protected Point handle_v(int d_endY) {
+    protected PointF handle_v(float d_endY) {
         all.add(new Cubic(lastX(), lastY(), lastX(), lastY(),
                 lastX(), lastY() + d_endY, lastX(), lastY() + d_endY));
-        return new Point(lastX(), lastY() + d_endY);
+        return new PointF(lastX(), lastY() + d_endY);
     }
 
     @Override
-    protected Point handle_Z() {
+    protected PointF handle_Z() {
         all.add(new Cubic(lastX(), lastY(), lastX(), lastY(),
                 firstX(), firstY(), firstX(), firstY()));
-        return new Point(firstX(), firstY());
+        return new PointF(firstX(), firstY());
     }
 
     @Override
-    protected Point handle_C(int control1X, int control1Y, int control2x, int control2Y, int endX, int endY) {
+    protected PointF handle_C(float control1X, float control1Y, float control2x, float control2Y, float endX, float endY) {
         all.add(new Cubic(lastX(), lastY(), control1X, control1Y,
                 control2x, control2Y, endX, endY));
-        return new Point(control2x, control2Y);
+        return new PointF(control2x, control2Y);
     }
 
     @Override
-    protected Point handle_c(int d_control1X, int d_control1Y, int d_control2x, int d_control2Y, int d_endX, int d_endY) {
+    protected PointF handle_c(float d_control1X, float d_control1Y, float d_control2x, float d_control2Y, float d_endX, float d_endY) {
         all.add(new Cubic(lastX(), lastY(),
                 lastX() + d_control1X, lastY() + d_control1Y,
                 lastX() + d_control2x, lastY() + d_control2Y,
                 lastX() + d_endX, lastY() + d_endY));
-        return new Point(lastX() + d_control2x, lastY() + d_control2Y);
+        return new PointF(lastX() + d_control2x, lastY() + d_control2Y);
     }
 
     @Override
-    protected Point handle_S(int control2x, int control2Y, int endX, int endY) {
+    protected PointF handle_S(float control2x, float control2Y, float endX, float endY) {
         all.add(new Cubic(lastX(), lastY(), nextControlX(), nextControlY(),
                 control2x, control2Y, endX, endY));
-        return new Point(control2x, control2Y);
+        return new PointF(control2x, control2Y);
     }
 
     @Override
-    protected Point handle_s(int d_control2x, int d_control2Y, int d_endX, int d_endY) {
+    protected PointF handle_s(float d_control2x, float d_control2Y, float d_endX, float d_endY) {
         all.add(new Cubic(lastX(), lastY(), nextControlX(), nextControlY(),
                 lastX() + d_control2x, lastY() + d_control2Y, lastX() + d_endX, lastY() + d_endY));
-        return new Point(lastX() + d_control2x, lastY() + d_control2Y);
+        return new PointF(lastX() + d_control2x, lastY() + d_control2Y);
     }
 
     @Override
-    protected Point handle_Q(int controlX, int controlY, int endX, int endY) {
+    protected PointF handle_Q(float controlX, float controlY, float endX, float endY) {
         all.add(new Cubic(lastX(), lastY(), controlX, controlY,
                 controlX, controlY, endX, endY));
-        return new Point(controlX, controlY);
+        return new PointF(controlX, controlY);
     }
 
     @Override
-    protected Point handle_q(int d_controlX, int d_controlY, int d_endX, int d_endY) {
+    protected PointF handle_q(float d_controlX, float d_controlY, float d_endX, float d_endY) {
         all.add(new Cubic(lastX(), lastY(), lastX() + d_controlX, lastY() + d_controlY,
                 lastX() + d_controlX, lastY() + d_controlY, lastX() + d_endX, lastY() + d_endY));
-        return new Point(lastX() + d_controlX, lastY() + d_controlY);
+        return new PointF(lastX() + d_controlX, lastY() + d_controlY);
     }
 
     @Override
-    protected Point handle_T(int endX, int endY) {
+    protected PointF handle_T(float endX, float endY) {
         all.add(new Cubic(lastX(), lastY(), nextControlX(), nextControlY(),
                 nextControlX(), nextControlY(), endX, endY));
-        return new Point(nextControlX(), nextControlY());
+        return new PointF(nextControlX(), nextControlY());
     }
 
     @Override
-    protected Point handle_t(int d_endX, int d_endY) {
+    protected PointF handle_t(float d_endX, float d_endY) {
         all.add(new Cubic(lastX(), lastY(), nextControlX(), nextControlY(),
                 nextControlX(), nextControlY(), lastX() + d_endX, lastY() + d_endY));
-        return new Point(nextControlX(), nextControlY());
+        return new PointF(nextControlX(), nextControlY());
     }
 
     public List<Cubic> getPathAsCubics() {

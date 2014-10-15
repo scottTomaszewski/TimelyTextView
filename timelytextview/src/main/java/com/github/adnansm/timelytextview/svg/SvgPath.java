@@ -5,7 +5,7 @@ import com.github.adnansm.timelytextview.model.Cubic;
 import java.util.List;
 
 public abstract class SvgPath {
-    public SvgPath from(final List<Cubic> path, final char symbol) {
+    public static SvgPath from(final List<Cubic> path, final char symbol) {
         return new SvgPath() {
             @Override
             public List<Cubic> getPath() {
@@ -19,7 +19,7 @@ public abstract class SvgPath {
         };
     }
 
-    public SvgPath from(final String pathDescriptions, final double unitsPerEm, final char symbol) {
+    public static SvgPath from(final String pathDescriptions, final double unitsPerEm, final char symbol) {
         return new SvgPath() {
             @Override
             public List<Cubic> getPath() {

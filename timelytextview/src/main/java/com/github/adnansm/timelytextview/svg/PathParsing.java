@@ -1,5 +1,6 @@
 package com.github.adnansm.timelytextview.svg;
 
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
@@ -23,61 +24,77 @@ public class PathParsing {
     public void parseUsing(PathCommandToCubicHandling toCubic) {
         List<String> commands = breakDown(source);
         for (String command : commands) {
+            // ignore command character
+            List<Float> args = argsOf(command.substring(1));
+
             switch (command.charAt(0)) {
                 case 'M':
-                    toCubic.process_M();
+                    toCubic.process_M(args.get(0), args.get(1));
                     break;
                 case 'm':
-                    toCubic.process_m();
+                    toCubic.process_m(args.get(0), args.get(1));
                     break;
                 case 'L':
-                    toCubic.process_L();
+                    toCubic.process_L(args.get(0), args.get(1));
                     break;
                 case 'l':
-                    toCubic.process_l();
+                    toCubic.process_l(args.get(0), args.get(1));
                     break;
                 case 'H':
-                    toCubic.process_H();
+                    toCubic.process_H(args.get(0));
                     break;
                 case 'h':
-                    toCubic.process_h();
+                    toCubic.process_h(args.get(0));
                     break;
                 case 'V':
-                    toCubic.process_V();
+                    toCubic.process_V(args.get(0));
                     break;
                 case 'v':
-                    toCubic.process_v();
+                    toCubic.process_v(args.get(0));
                     break;
                 case 'z':
                 case 'Z':
                     toCubic.process_Z();
                     break;
                 case 'C':
-                    toCubic.process_C();
+                    toCubic.process_C(args.get(0), args.get(1), args.get(2), args.get(3), args.get(4), args.get(5));
                     break;
                 case 'c':
-                    toCubic.process_c();
+                    toCubic.process_c(args.get(0), args.get(1), args.get(2), args.get(3), args.get(4), args.get(5));
                     break;
                 case 'S':
-                    toCubic.process_S();
+                    toCubic.process_S(args.get(0), args.get(1), args.get(2), args.get(3));
                     break;
                 case 's':
-                    toCubic.process_s();
+                    toCubic.process_s(args.get(0), args.get(1), args.get(2), args.get(3));
                     break;
                 case 'Q':
-                    toCubic.process_Q();
+                    toCubic.process_Q(args.get(0), args.get(1), args.get(2), args.get(3));
                     break;
                 case 'q':
-                    toCubic.process_q();
+                    toCubic.process_q(args.get(0), args.get(1), args.get(2), args.get(3));
                     break;
                 case 'T':
-                    toCubic.process_T();
+                    toCubic.process_T(args.get(0), args.get(1));
                     break;
                 case 't':
-                    toCubic.process_t();
+                    toCubic.process_t(args.get(0), args.get(1));
                     break;
+                default:
+                    throw new IllegalArgumentException("Unsupported character: " + command.charAt(0));
             }
         }
+    }
+
+    private static final Splitter COMMAND_ARGS = Splitter.on(' ').omitEmptyStrings().trimResults();
+
+    private List<Float> argsOf(String substring) {
+        List<String> strings = COMMAND_ARGS.splitToList(substring);
+        List<Float> args = Lists.newArrayList();
+        for (String arg : strings) {
+            args.add(Float.parseFloat(arg));
+        }
+        return args;
     }
 
     private List<String> breakDown(String source) {
