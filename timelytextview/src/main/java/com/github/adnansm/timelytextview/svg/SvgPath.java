@@ -23,7 +23,10 @@ public abstract class SvgPath {
         return new SvgPath() {
             @Override
             public List<Cubic> getPath() {
-                return parse(pathDescriptions, unitsPerEm);
+
+                PathCommandToCubicHandling toCubic = new PathCommandToCubicHandling();
+                new PathParsing(pathDescriptions, unitsPerEm).parseUsing(toCubic);
+                return toCubic.getPathAsCubics();
             }
 
             @Override
@@ -36,8 +39,4 @@ public abstract class SvgPath {
     public abstract List<Cubic> getPath();
 
     public abstract char symbol();
-
-    private List<Cubic> parse(String pathDescriptions, double unitsPerEm) {
-        return null;
-    }
 }
