@@ -1,7 +1,5 @@
 package com.github.adnansm.timelytextview.svg;
 
-import android.util.Log;
-
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -24,10 +22,8 @@ public class PathParsing {
     public void parseUsing(PathCommandToCubicHandling toCubic) {
         List<String> commands = breakDown(source);
         for (String command : commands) {
-            Log.d("Parsing", command);
             // ignore command character
             List<Float> args = argsOf(command.substring(1));
-
             switch (command.charAt(0)) {
                 case 'M':
                     toCubic.process_M(args.get(0), args.get(1));
@@ -102,7 +98,6 @@ public class PathParsing {
         List<String> commands = Lists.newArrayList();
         String tail = source;
         while (!tail.isEmpty()) {
-            Log.d("Parsing", tail);
             if (!COMMANDS.contains(tail.charAt(0))) {
                 throw new IllegalArgumentException("Unsupported command: " + tail.charAt(0));
             }
@@ -114,7 +109,6 @@ public class PathParsing {
             String commandWithArgs = tail.substring(0, nextCommandIndex);
             commands.add(commandWithArgs);
             tail = tail.substring(nextCommandIndex);
-            Log.d("Parsing", "substring: " + tail);
         }
         return commands;
     }

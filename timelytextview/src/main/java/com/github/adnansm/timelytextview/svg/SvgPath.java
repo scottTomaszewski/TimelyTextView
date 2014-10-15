@@ -27,7 +27,6 @@ public abstract class SvgPath {
         return new SvgPath() {
             @Override
             public List<Cubic> getPath() {
-                Log.d("SvgPath", "Starting");
                 PathCommandToCubicHandling toCubic = new PathCommandToCubicHandling();
                 new PathParsing(pathDescriptions).parseUsing(toCubic);
                 ArrayList<Cubic> normalized = Lists.newArrayList();
