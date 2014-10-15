@@ -1,4 +1,4 @@
-package com.github.adnansm.timelytextview;
+package com.github.adnansm.timelytextview.svg;
 
 public class PathParsing {
     private final PathCommandHandling handler;

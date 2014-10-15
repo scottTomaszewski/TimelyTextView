@@ -1,6 +1,6 @@
 package com.github.adnansm.timelytextview.model;
 
-import com.github.adnansm.timelytextview.SvgPath;
+import com.github.adnansm.timelytextview.svg.SvgPath;
 import com.github.adnansm.timelytextview.model.chars.Vertical;
 import com.github.adnansm.timelytextview.model.chars.Vertical2;
 

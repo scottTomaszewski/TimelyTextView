@@ -1,4 +1,4 @@
-package com.github.adnansm.timelytextview;
+package com.github.adnansm.timelytextview.svg;
 
 import com.github.adnansm.timelytextview.model.Cubic;
 

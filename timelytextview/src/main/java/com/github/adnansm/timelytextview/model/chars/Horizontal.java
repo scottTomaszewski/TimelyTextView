@@ -1,6 +1,6 @@
 package com.github.adnansm.timelytextview.model.chars;
 
-import com.github.adnansm.timelytextview.SvgPath;
+import com.github.adnansm.timelytextview.svg.SvgPath;
 import com.github.adnansm.timelytextview.model.Cubic;
 import com.google.common.collect.Lists;
 

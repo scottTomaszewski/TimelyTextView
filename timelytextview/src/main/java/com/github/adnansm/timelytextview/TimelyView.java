@@ -11,6 +11,7 @@ import android.view.View;
 import com.github.adnansm.timelytextview.animation.SvgPathTweening;
 import com.github.adnansm.timelytextview.model.Char;
 import com.github.adnansm.timelytextview.model.Cubic;
+import com.github.adnansm.timelytextview.svg.SvgPath;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.util.Property;
 

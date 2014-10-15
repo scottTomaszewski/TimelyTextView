@@ -1,6 +1,6 @@
 package com.github.adnansm.timelytextview.animation;
 
-import com.github.adnansm.timelytextview.SvgPath;
+import com.github.adnansm.timelytextview.svg.SvgPath;
 import com.github.adnansm.timelytextview.model.Cubic;
 import com.google.common.collect.Lists;
 import com.nineoldandroids.animation.TypeEvaluator;

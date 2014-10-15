@@ -1,19 +1,5 @@
 package com.github.adnansm.timelytextview.model;
 
-import com.github.adnansm.timelytextview.SvgPath;
-import com.github.adnansm.timelytextview.model.number.Eight;
-import com.github.adnansm.timelytextview.model.number.Five;
-import com.github.adnansm.timelytextview.model.number.Four;
-import com.github.adnansm.timelytextview.model.number.Nine;
-import com.github.adnansm.timelytextview.model.number.One;
-import com.github.adnansm.timelytextview.model.number.Seven;
-import com.github.adnansm.timelytextview.model.number.Six;
-import com.github.adnansm.timelytextview.model.number.Three;
-import com.github.adnansm.timelytextview.model.number.Two;
-import com.github.adnansm.timelytextview.model.number.Zero;
-
-import java.security.InvalidParameterException;
-
 public class Characters {
 //    public static SvgPath getControlPointsFor(char start) {
 //        return new SvgPath(getPath(start));
