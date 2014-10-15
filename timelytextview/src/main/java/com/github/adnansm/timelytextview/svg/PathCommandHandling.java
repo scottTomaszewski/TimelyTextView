@@ -2,11 +2,13 @@ package com.github.adnansm.timelytextview.svg;
 
 import android.graphics.Point;
 
+import com.google.common.base.Preconditions;
+
 public abstract class PathCommandHandling {
-    private int lastX;
-    private int lastY;
-    private int firstX;
-    private int firstY;
+    private int lastX = -1;
+    private int lastY = -1;
+    private int firstX = -1;
+    private int firstY = -1;
     private Point lastControlPoint;
 
     protected final int lastX() {
@@ -42,6 +44,7 @@ public abstract class PathCommandHandling {
     }
 
     final void process_m(int d_endX, int d_endY) {
+        checkHasLast();
         lastControlPoint = handle_m(d_endX, d_endY);
         lastX = lastX + d_endX;
         lastY = lastY + d_endY;
@@ -56,6 +59,7 @@ public abstract class PathCommandHandling {
     }
 
     final void process_l(int d_endX, int d_endY) {
+        checkHasLast();
         lastControlPoint = handle_l(d_endX, d_endY);
         lastX = lastX + d_endX;
         lastY = lastY + d_endY;
@@ -67,6 +71,7 @@ public abstract class PathCommandHandling {
     }
 
     final void process_h(int d_endX) {
+        checkHasLast();
         lastControlPoint = handle_h(d_endX);
         lastX = lastX + d_endX;
     }
@@ -77,11 +82,13 @@ public abstract class PathCommandHandling {
     }
 
     final void process_v(int d_endY) {
+        checkHasLast();
         lastControlPoint = handle_v(d_endY);
         lastY = lastY + d_endY;
     }
 
     final void process_Z() {
+        checkHasFirst();
         lastControlPoint = handle_Z();
         lastX = firstX;
         lastY = firstY;
@@ -94,19 +101,22 @@ public abstract class PathCommandHandling {
     }
 
     final void process_c(int d_control1X, int d_control1Y, int d_control2X, int d_control2Y, int d_endX, int d_endY) {
+        checkHasLast();
         lastControlPoint = handle_c(d_control1X, d_control1Y, d_control2X, d_control2Y, d_endX, d_endY);
         lastX = lastX + d_endX;
         lastY = lastY + d_endY;
     }
 
     final void process_S(int control2X, int control2Y, int endX, int endY) {
-        // TODO: check that this is legal
+        checkHasLastControlPoint();
         lastControlPoint = handle_S(control2X, control2Y, endX, endY);
         lastX = endX;
         lastY = endY;
     }
 
     final void process_s(int d_control2X, int d_control2Y, int d_endX, int d_endY) {
+        checkHasLastControlPoint();
+        checkHasLast();
         lastControlPoint = handle_s(d_control2X, d_control2Y, d_endX, d_endY);
         lastX = lastX + d_endX;
         lastY = lastY + d_endY;
@@ -119,21 +129,39 @@ public abstract class PathCommandHandling {
     }
 
     final void process_q(int d_controlX, int d_controlY, int d_endX, int d_endY) {
+        checkHasLast();
         lastControlPoint = handle_q(d_controlX, d_controlY, d_endX, d_endY);
         lastX = lastX + d_endX;
         lastY = lastY + d_endY;
     }
 
     final void process_T(int endX, int endY) {
+        checkHasLastControlPoint();
         lastControlPoint = handle_T(endX, endY);
         lastX = endX;
         lastY = endY;
     }
 
     final void process_t(int d_endX, int d_endY) {
+        checkHasLastControlPoint();
+        checkHasLast();
         lastControlPoint = handle_t(d_endX, d_endY);
         lastX = lastX + d_endX;
         lastY = lastY + d_endY;
+    }
+
+    private void checkHasLast() {
+        Preconditions.checkArgument(lastX != -1);
+        Preconditions.checkArgument(lastY != -1);
+    }
+
+    private void checkHasFirst() {
+        Preconditions.checkArgument(firstX != -1);
+        Preconditions.checkArgument(firstY != -1);
+    }
+
+    private void checkHasLastControlPoint() {
+        Preconditions.checkNotNull(lastControlPoint);
     }
 
     // implementations
