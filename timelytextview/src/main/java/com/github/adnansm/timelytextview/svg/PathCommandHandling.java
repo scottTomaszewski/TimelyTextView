@@ -22,6 +22,14 @@ public abstract class PathCommandHandling {
         return firstY;
     }
 
+    protected final int nextControlX() {
+        return 0;
+    }
+
+    protected final int nextControlY() {
+        return 0;
+    }
+
     final void process_M(int endX, int endY) {
         handle_M(endX, endY);
         lastX = endX;
@@ -74,26 +82,27 @@ public abstract class PathCommandHandling {
         lastY = firstY;
     }
 
-    final void process_C(int control1X, int control1Y, int control2x, int control2Y, int endX, int endY) {
-        handle_C(control1X, control1Y, control2x, control2Y, endX, endY);
+    final void process_C(int control1X, int control1Y, int control2X, int control2Y, int endX, int endY) {
+        handle_C(control1X, control1Y, control2X, control2Y, endX, endY);
         lastX = endX;
         lastY = endY;
     }
 
-    final void process_c(int d_control1X, int d_control1Y, int d_control2x, int d_control2Y, int d_endX, int d_endY) {
-        handle_c(d_control1X, d_control1Y, d_control2x, d_control2Y, d_endX, d_endY);
+    final void process_c(int d_control1X, int d_control1Y, int d_control2X, int d_control2Y, int d_endX, int d_endY) {
+        handle_c(d_control1X, d_control1Y, d_control2X, d_control2Y, d_endX, d_endY);
         lastX = lastX + d_endX;
         lastY = lastY + d_endY;
     }
 
-    final void process_S(int control2x, int control2Y, int endX, int endY) {
-        handle_S(control2x, control2Y, endX, endY);
+    final void process_S(int control2X, int control2Y, int endX, int endY) {
+        // TODO: check that this is legal
+        handle_S(control2X, control2Y, endX, endY);
         lastX = endX;
         lastY = endY;
     }
 
-    final void process_s(int d_control2x, int d_control2Y, int d_endX, int d_endY) {
-        handle_s(d_control2x, d_control2Y, d_endX, d_endY);
+    final void process_s(int d_control2X, int d_control2Y, int d_endX, int d_endY) {
+        handle_s(d_control2X, d_control2Y, d_endX, d_endY);
         lastX = lastX + d_endX;
         lastY = lastY + d_endY;
     }
