@@ -70,3 +70,13 @@ License
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/adnan-SM/timelytextview/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
+Credit and links
+----------------
+- http://sriramramani.wordpress.com/2013/10/14/number-tweening/ (he started it all)
+- https://github.com/adnan-SM/TimelyTextView (bunch of the android grunt work)
+- https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths (how SVG works)
+- http://xmlgraphics.apache.org/batik/using/parsers.html (idea for a path parser)
+- http://stackoverflow.com/questions/3162645/convert-a-quadratic-bezier-to-a-cubic (converting to cubic)
+- http://tutorials.jenkov.com/svg/path-element.html (descriptions)
+- https://github.com/leonidas/lausuntopalvelu-prototyyppi/blob/master/public/fonts/open-sans/OpenSans-Light-webfont.svg?short_path=c7ae13a (open-sans as SVG)
+
