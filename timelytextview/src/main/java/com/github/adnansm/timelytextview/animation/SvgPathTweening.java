@@ -10,8 +10,8 @@ import java.util.List;
 public class SvgPathTweening implements TypeEvaluator<SvgPath> {
     @Override
     public SvgPath evaluate(float fraction, SvgPath startPath, SvgPath endPath) {
-        List<Cubic> starts = startPath.get();
-        List<Cubic> ends = endPath.get();
+        List<Cubic> starts = startPath.getPath();
+        List<Cubic> ends = endPath.getPath();
 
         int max = Math.max(starts.size(), ends.size());
         fill(starts, max);

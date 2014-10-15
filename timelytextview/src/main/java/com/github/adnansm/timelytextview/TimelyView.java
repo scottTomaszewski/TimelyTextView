@@ -75,7 +75,7 @@ public class TimelyView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (path == null) return;
-        List<Cubic> controlPoints = path.get();
+        List<Cubic> controlPoints = path.getPath();
 
         int height = getMeasuredHeight();
         int width = getMeasuredWidth();

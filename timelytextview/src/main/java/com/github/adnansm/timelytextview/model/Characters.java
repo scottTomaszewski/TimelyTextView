@@ -16,10 +16,10 @@ import java.security.InvalidParameterException;
 
 public class Characters {
 //    public static SvgPath getControlPointsFor(char start) {
-//        return new SvgPath(get(start));
+//        return new SvgPath(getPath(start));
 //    }
 //
-//    public static float[][] get(char start) {
+//    public static float[][] getPath(char start) {
 //        switch (start) {
 //            case 0:
 //                return Zero.getInstance().getControlPoints();
