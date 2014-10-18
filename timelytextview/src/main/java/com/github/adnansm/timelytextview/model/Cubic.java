@@ -1,5 +1,7 @@
 package com.github.adnansm.timelytextview.model;
 
+import com.google.common.base.MoreObjects;
+
 public class Cubic {
     public final double startX;
     public final double startY;
@@ -50,5 +52,19 @@ public class Cubic {
                 control2X, control2Y,
                 control1X, control1Y,
                 startX, startY);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("startX", startX)
+                .add("startY", startY)
+                .add("control1X", control1X)
+                .add("control1Y", control1Y)
+                .add("control2X", control2X)
+                .add("control2Y", control2Y)
+                .add("endX", endX)
+                .add("endY", endY)
+                .toString();
     }
 }

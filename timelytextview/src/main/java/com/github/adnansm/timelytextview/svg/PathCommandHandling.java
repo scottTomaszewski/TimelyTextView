@@ -1,6 +1,8 @@
 package com.github.adnansm.timelytextview.svg;
 
+import android.graphics.Point;
 import android.graphics.PointF;
+import android.util.Log;
 
 import com.google.common.base.Preconditions;
 
@@ -95,6 +97,7 @@ public abstract class PathCommandHandling {
     }
 
     final void process_C(float control1X, float control1Y, float control2X, float control2Y, float endX, float endY) {
+        Log.d("HandleParent", control1X + " " + control1Y + " " + control2X + " " + control2Y + " " + endX + " " + endY);
         lastControlPoint = handle_C(control1X, control1Y, control2X, control2Y, endX, endY);
         lastX = endX;
         lastY = endY;

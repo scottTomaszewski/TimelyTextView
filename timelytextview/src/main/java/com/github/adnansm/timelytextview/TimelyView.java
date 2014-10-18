@@ -18,7 +18,7 @@ import com.nineoldandroids.util.Property;
 import java.util.List;
 
 public class TimelyView extends View {
-    private static final float RATIO = 1f;
+    private static final float RATIO = .5f;
 
     private static final Property<TimelyView, SvgPath> PATH_POINTS =
             new Property<TimelyView, SvgPath>(SvgPath.class, "pathPoints") {

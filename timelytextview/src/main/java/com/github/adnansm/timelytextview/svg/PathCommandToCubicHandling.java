@@ -1,6 +1,7 @@
 package com.github.adnansm.timelytextview.svg;
 
 import android.graphics.PointF;
+import android.util.Log;
 
 import com.github.adnansm.timelytextview.model.Cubic;
 import com.google.common.collect.Lists;
@@ -70,33 +71,34 @@ public class PathCommandToCubicHandling extends PathCommandHandling {
     }
 
     @Override
-    protected PointF handle_C(float control1X, float control1Y, float control2x, float control2Y, float endX, float endY) {
+    protected PointF handle_C(float control1X, float control1Y, float control2X, float control2Y, float endX, float endY) {
+        Log.d("Handle", control1X + " " + control1Y + " " + control2X + " " + control2Y + " " + endX + " " + endY);
         all.add(new Cubic(lastX(), lastY(), control1X, control1Y,
-                control2x, control2Y, endX, endY));
-        return new PointF(control2x, control2Y);
+                control2X, control2Y, endX, endY));
+        return new PointF(control2X, control2Y);
     }
 
     @Override
-    protected PointF handle_c(float d_control1X, float d_control1Y, float d_control2x, float d_control2Y, float d_endX, float d_endY) {
+    protected PointF handle_c(float d_control1X, float d_control1Y, float d_control2X, float d_control2Y, float d_endX, float d_endY) {
         all.add(new Cubic(lastX(), lastY(),
                 lastX() + d_control1X, lastY() + d_control1Y,
-                lastX() + d_control2x, lastY() + d_control2Y,
+                lastX() + d_control2X, lastY() + d_control2Y,
                 lastX() + d_endX, lastY() + d_endY));
-        return new PointF(lastX() + d_control2x, lastY() + d_control2Y);
+        return new PointF(lastX() + d_control2X, lastY() + d_control2Y);
     }
 
     @Override
-    protected PointF handle_S(float control2x, float control2Y, float endX, float endY) {
+    protected PointF handle_S(float control2X, float control2Y, float endX, float endY) {
         all.add(new Cubic(lastX(), lastY(), nextControlX(), nextControlY(),
-                control2x, control2Y, endX, endY));
-        return new PointF(control2x, control2Y);
+                control2X, control2Y, endX, endY));
+        return new PointF(control2X, control2Y);
     }
 
     @Override
-    protected PointF handle_s(float d_control2x, float d_control2Y, float d_endX, float d_endY) {
+    protected PointF handle_s(float d_control2X, float d_control2Y, float d_endX, float d_endY) {
         all.add(new Cubic(lastX(), lastY(), nextControlX(), nextControlY(),
-                lastX() + d_control2x, lastY() + d_control2Y, lastX() + d_endX, lastY() + d_endY));
-        return new PointF(lastX() + d_control2x, lastY() + d_control2Y);
+                lastX() + d_control2X, lastY() + d_control2Y, lastX() + d_endX, lastY() + d_endY));
+        return new PointF(lastX() + d_control2X, lastY() + d_control2Y);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.github.adnansm.timelytextview.svg;
 
+import android.util.Log;
+
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -11,7 +13,7 @@ public class PathParsing {
     private static final Set<Character> COMMANDS = Sets.newHashSet(
             'M', 'm', 'L', 'l', 'H', 'h', 'V', 'v', 'Z', 'z', 'C', 'c', 'S', 's', 'Q', 'q', 'T', 't');
     private static final Set<Character> SUPPORTED = Sets.newHashSet(
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', ',', '-');
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', ',', '-', '.');
 
     private final String source;
 
@@ -24,6 +26,7 @@ public class PathParsing {
         for (String command : commands) {
             // ignore command character
             List<Float> args = argsOf(command.substring(1));
+            Log.d("Parsing", args.toString());
             switch (command.charAt(0)) {
                 case 'M':
                     toCubic.process_M(args.get(0), args.get(1));
@@ -104,10 +107,10 @@ public class PathParsing {
             int nextCommandIndex = indexOfNextCommandOrNegative(tail);
             if (nextCommandIndex < 0) {
                 // no more commands
+                commands.add(tail.substring(0, tail.length()));
                 break;
             }
-            String commandWithArgs = tail.substring(0, nextCommandIndex);
-            commands.add(commandWithArgs);
+            commands.add(tail.substring(0, nextCommandIndex));
             tail = tail.substring(nextCommandIndex);
         }
         return commands;

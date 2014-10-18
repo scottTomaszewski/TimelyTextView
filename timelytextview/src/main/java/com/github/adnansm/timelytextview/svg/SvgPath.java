@@ -28,9 +28,11 @@ public abstract class SvgPath {
             @Override
             public List<Cubic> getPath() {
                 PathCommandToCubicHandling toCubic = new PathCommandToCubicHandling();
+                Log.d("SvgPath", pathDescriptions);
                 new PathParsing(pathDescriptions).parseUsing(toCubic);
                 ArrayList<Cubic> normalized = Lists.newArrayList();
                 for (Cubic c : toCubic.getPathAsCubics()) {
+                    Log.d("SvgPath", c.toString());
                     normalized.add(c.normalizeWithMax(unitsPerEm).flipAlongHorizontal());
                 }
                 return normalized;
