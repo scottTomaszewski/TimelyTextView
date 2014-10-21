@@ -25,7 +25,7 @@ public class PathParsing {
         List<String> commands = breakDown(source);
         for (String command : commands) {
             // ignore command character
-            List<Float> args = argsOf(command.substring(1));
+            List<Float> args = doubleArgsOf(command.substring(1));
             Log.d("Parsing", args.toString());
             switch (command.charAt(0)) {
                 case 'M':
@@ -88,11 +88,11 @@ public class PathParsing {
 
     private static final Splitter COMMAND_ARGS = Splitter.on(' ').omitEmptyStrings().trimResults();
 
-    private List<Float> argsOf(String substring) {
+    private List<Float> doubleArgsOf(String substring) {
         List<String> strings = COMMAND_ARGS.splitToList(substring);
         List<Float> args = Lists.newArrayList();
         for (String arg : strings) {
-            args.add(Float.parseFloat(arg));
+            args.add(Float.parseFloat(arg)*2);
         }
         return args;
     }

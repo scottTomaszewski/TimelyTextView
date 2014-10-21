@@ -1,156 +1,150 @@
 package com.github.adnansm.timelytextview.svg;
 
-import android.graphics.Point;
-import android.graphics.PointF;
 import android.util.Log;
 
+import com.github.adnansm.timelytextview.model.PointD;
 import com.google.common.base.Preconditions;
 
 public abstract class PathCommandHandling {
-    private float lastX = -1;
-    private float lastY = -1;
-    private float firstX = -1;
-    private float firstY = -1;
-    private PointF lastControlPoint;
+    private double lastX = -1.0;
+    private double lastY = -1.0;
+    private double firstX = -1.0;
+    private double firstY = -1.0;
+    private PointD nextControlPoint;
 
-    protected final float lastX() {
+    protected final double lastX() {
         return lastX;
     }
 
-    protected final float lastY() {
+    protected final double lastY() {
         return lastY;
     }
 
-    protected final float firstX() {
+    protected final double firstX() {
         return firstX;
     }
 
-    protected final float firstY() {
+    protected final double firstY() {
         return firstY;
     }
 
-    protected final float nextControlX() {
-        return lastX() + (lastX() - lastControlPoint.x);
+    protected final double nextControlX() {
+        return nextControlPoint.x;
     }
 
-    protected final float nextControlY() {
-        return lastY() + (lastY() - lastControlPoint.y);
+    protected final double nextControlY() {
+        return nextControlPoint.y;
     }
 
-    final void process_M(float endX, float endY) {
-        lastControlPoint = handle_M(endX, endY);
+    final void process_M(double endX, double endY) {
+        handle_M(endX, endY);
         lastX = endX;
         lastY = endY;
         firstX = endX;
         firstY = endY;
+        nextControlPoint = new PointD(endX, endY);
     }
 
-    final void process_m(float d_endX, float d_endY) {
+    final void process_m(double d_endX, double d_endY) {
         checkHasLast();
-        lastControlPoint = handle_m(d_endX, d_endY);
+        handle_m(d_endX, d_endY);
         lastX = lastX + d_endX;
         lastY = lastY + d_endY;
         firstX = lastX + d_endX;
         firstY = lastY + d_endY;
+        nextControlPoint = new PointD(lastX + d_endX, lastY + d_endY);
     }
 
-    final void process_L(float endX, float endY) {
-        lastControlPoint = handle_L(endX, endY);
+    final void process_L(double endX, double endY) {
+        handle_L(endX, endY);
         lastX = endX;
         lastY = endY;
+        nextControlPoint = new PointD(endX, endY);
     }
 
-    final void process_l(float d_endX, float d_endY) {
+    final void process_l(double d_endX, double d_endY) {
         checkHasLast();
-        lastControlPoint = handle_l(d_endX, d_endY);
+        handle_l(d_endX, d_endY);
         lastX = lastX + d_endX;
         lastY = lastY + d_endY;
+        nextControlPoint = new PointD(lastX + d_endX, lastY + d_endY);
+
     }
 
-    final void process_H(float endX) {
-        lastControlPoint = handle_H(endX);
-        lastX = endX;
+    final void process_H(double endX) {
+        process_L(endX, lastY());
     }
 
-    final void process_h(float d_endX) {
+    final void process_h(double d_endX) {
         checkHasLast();
-        lastControlPoint = handle_h(d_endX);
-        lastX = lastX + d_endX;
+        process_H(lastX() + d_endX);
     }
 
-    final void process_V(float endY) {
-        lastControlPoint = handle_V(endY);
-        lastY = endY;
+    final void process_V(double endY) {
+        process_L(lastX(), endY);
     }
 
-    final void process_v(float d_endY) {
+    final void process_v(double d_endY) {
         checkHasLast();
-        lastControlPoint = handle_v(d_endY);
-        lastY = lastY + d_endY;
+        process_V(lastY() + d_endY);
     }
 
     final void process_Z() {
         checkHasFirst();
-        lastControlPoint = handle_Z();
-        lastX = firstX;
-        lastY = firstY;
+        process_L(firstX(), firstY());
     }
 
-    final void process_C(float control1X, float control1Y, float control2X, float control2Y, float endX, float endY) {
+    final void process_C(double control1X, double control1Y, double control2X, double control2Y, double endX, double endY) {
         Log.d("HandleParent", control1X + " " + control1Y + " " + control2X + " " + control2Y + " " + endX + " " + endY);
-        lastControlPoint = handle_C(control1X, control1Y, control2X, control2Y, endX, endY);
+        handle_C(control1X, control1Y, control2X, control2Y, endX, endY);
+        lastX = endX;
+        lastY = endY;
+        nextControlPoint = new PointD(endX - control2X, endY - control2Y);
+    }
+
+    final void process_c(double d_control1X, double d_control1Y, double d_control2X, double d_control2Y, double d_endX, double d_endY) {
+        checkHasLast();
+        process_C(lastX + d_control1X, lastY() + d_control1Y, lastX() + d_control2X, lastY() + d_control2Y, lastX() + d_endX, lastY() + d_endY);
+    }
+
+    final void process_S(double control2X, double control2Y, double endX, double endY) {
+        checkHasLastControlPoint();
+        handle_S(control2X, control2Y, endX, endY);
+        lastX = endX;
+        lastY = endY;
+        nextControlPoint = new PointD(endX - control2X, endY - control2Y);
+    }
+
+    final void process_s(double d_control2X, double d_control2Y, double d_endX, double d_endY) {
+        checkHasLastControlPoint();
+        checkHasLast();
+        process_S(lastX + d_control2X, lastY + d_control2Y, lastX + d_endX, lastY + d_endY);
+    }
+
+    final void process_Q(double controlX, double controlY, double endX, double endY) {
+        handle_Q(controlX, controlY, endX, endY);
+        nextControlPoint = new PointD(endX*2 - controlX, endY*2 - controlY);
         lastX = endX;
         lastY = endY;
     }
 
-    final void process_c(float d_control1X, float d_control1Y, float d_control2X, float d_control2Y, float d_endX, float d_endY) {
+    final void process_q(double d_controlX, double d_controlY, double d_endX, double d_endY) {
         checkHasLast();
-        lastControlPoint = handle_c(d_control1X, d_control1Y, d_control2X, d_control2Y, d_endX, d_endY);
-        lastX = lastX + d_endX;
-        lastY = lastY + d_endY;
+        process_Q(lastX + d_controlX, lastY + d_controlY, lastX() + d_endX, lastY() + d_endY);
     }
 
-    final void process_S(float control2X, float control2Y, float endX, float endY) {
+    final void process_T(double endX, double endY) {
         checkHasLastControlPoint();
-        lastControlPoint = handle_S(control2X, control2Y, endX, endY);
+        handle_T(endX, endY);
         lastX = endX;
         lastY = endY;
+        nextControlPoint = new PointD(endX*2 - nextControlPoint.x, endY*2 - nextControlPoint.y);
     }
 
-    final void process_s(float d_control2X, float d_control2Y, float d_endX, float d_endY) {
+    final void process_t(double d_endX, double d_endY) {
         checkHasLastControlPoint();
         checkHasLast();
-        lastControlPoint = handle_s(d_control2X, d_control2Y, d_endX, d_endY);
-        lastX = lastX + d_endX;
-        lastY = lastY + d_endY;
-    }
-
-    final void process_Q(float controlX, float controlY, float endX, float endY) {
-        lastControlPoint = handle_Q(controlX, controlY, endX, endY);
-        lastX = endX;
-        lastY = endY;
-    }
-
-    final void process_q(float d_controlX, float d_controlY, float d_endX, float d_endY) {
-        checkHasLast();
-        lastControlPoint = handle_q(d_controlX, d_controlY, d_endX, d_endY);
-        lastX = lastX + d_endX;
-        lastY = lastY + d_endY;
-    }
-
-    final void process_T(float endX, float endY) {
-        checkHasLastControlPoint();
-        lastControlPoint = handle_T(endX, endY);
-        lastX = endX;
-        lastY = endY;
-    }
-
-    final void process_t(float d_endX, float d_endY) {
-        checkHasLastControlPoint();
-        checkHasLast();
-        lastControlPoint = handle_t(d_endX, d_endY);
-        lastX = lastX + d_endX;
-        lastY = lastY + d_endY;
+        process_T(lastX + d_endX, lastY + d_endY);
     }
 
     private void checkHasLast() {
@@ -164,42 +158,42 @@ public abstract class PathCommandHandling {
     }
 
     private void checkHasLastControlPoint() {
-        Preconditions.checkNotNull(lastControlPoint);
+        Preconditions.checkNotNull(nextControlPoint);
     }
 
     // implementations
 
-    protected abstract PointF handle_M(float endX, float endY);
+    protected abstract void handle_M(double endX, double endY);
 
-    protected abstract PointF handle_m(float d_endX, float d_endY);
+    protected abstract void handle_m(double d_endX, double d_endY);
 
-    protected abstract PointF handle_L(float endX, float endY);
+    protected abstract void handle_L(double endX, double endY);
 
-    protected abstract PointF handle_l(float d_endX, float d_endY);
+    protected abstract void handle_l(double d_endX, double d_endY);
 
-    protected abstract PointF handle_H(float endX);
+    protected abstract void handle_H(double endX);
 
-    protected abstract PointF handle_h(float d_endX);
+    protected abstract void handle_h(double d_endX);
 
-    protected abstract PointF handle_V(float endY);
+    protected abstract void handle_V(double endY);
 
-    protected abstract PointF handle_v(float d_endY);
+    protected abstract void handle_v(double d_endY);
 
-    protected abstract PointF handle_Z();
+    protected abstract void handle_Z();
 
-    protected abstract PointF handle_C(float control1X, float control1Y, float control2x, float control2Y, float endX, float endY);
+    protected abstract void handle_C(double control1X, double control1Y, double control2x, double control2Y, double endX, double endY);
 
-    protected abstract PointF handle_c(float d_control1X, float d_control1Y, float d_control2x, float d_control2Y, float d_endX, float d_endY);
+    protected abstract void handle_c(double d_control1X, double d_control1Y, double d_control2x, double d_control2Y, double d_endX, double d_endY);
 
-    protected abstract PointF handle_S(float control2x, float control2Y, float endX, float endY);
+    protected abstract void handle_S(double control2x, double control2Y, double endX, double endY);
 
-    protected abstract PointF handle_s(float d_control2x, float d_control2Y, float d_endX, float d_endY);
+    protected abstract void handle_s(double d_control2x, double d_control2Y, double d_endX, double d_endY);
 
-    protected abstract PointF handle_Q(float controlX, float controlY, float endX, float endY);
+    protected abstract void handle_Q(double controlX, double controlY, double endX, double endY);
 
-    protected abstract PointF handle_q(float d_controlX, float d_controlY, float d_endX, float d_endY);
+    protected abstract void handle_q(double d_controlX, double d_controlY, double d_endX, double d_endY);
 
-    protected abstract PointF handle_T(float endX, float endY);
+    protected abstract void handle_T(double endX, double endY);
 
-    protected abstract PointF handle_t(float d_endX, float d_endY);
+    protected abstract void handle_t(double d_endX, double d_endY);
 }

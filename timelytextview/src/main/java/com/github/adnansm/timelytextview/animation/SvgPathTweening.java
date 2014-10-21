@@ -1,7 +1,7 @@
 package com.github.adnansm.timelytextview.animation;
 
-import com.github.adnansm.timelytextview.svg.SvgPath;
 import com.github.adnansm.timelytextview.model.Cubic;
+import com.github.adnansm.timelytextview.svg.SvgPath;
 import com.google.common.collect.Lists;
 import com.nineoldandroids.animation.TypeEvaluator;
 
@@ -25,10 +25,11 @@ public class SvgPathTweening implements TypeEvaluator<SvgPath> {
     }
 
     private void fill(List<Cubic> path, int toFill) {
-        Cubic last = path.size() != 0 ? path.get(path.size() - 1) : new Cubic(0, 0, 0, 0, 0, 0, 0, 0);
-        boolean flip = false;
+        Cubic last = path.get(path.size() - 1);
+        Cubic lastPoint = new Cubic(last.endX, last.endY, last.endX, last.endY, last.endX, last.endY, last.endX, last.endY);
+        Cubic filler = path.size() != 0 ? lastPoint : new Cubic(0, 0, 0, 0, 0, 0, 0, 0);
         while (path.size() < toFill) {
-            path.add(flip ? last.swap() : last);
+            path.add(filler);
         }
     }
 
