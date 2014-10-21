@@ -69,21 +69,21 @@ public abstract class PathCommandHandling {
     }
 
     final void process_H(double endX) {
-        process_L(endX, lastY());
+        process_L(endX, lastY);
     }
 
     final void process_h(double d_endX) {
         checkHasLast();
-        process_H(lastX() + d_endX);
+        process_H(lastX + d_endX);
     }
 
     final void process_V(double endY) {
-        process_L(lastX(), endY);
+        process_L(lastX, endY);
     }
 
     final void process_v(double d_endY) {
         checkHasLast();
-        process_V(lastY() + d_endY);
+        process_V(lastY + d_endY);
     }
 
     final void process_Z() {
@@ -100,7 +100,7 @@ public abstract class PathCommandHandling {
 
     final void process_c(double d_control1X, double d_control1Y, double d_control2X, double d_control2Y, double d_endX, double d_endY) {
         checkHasLast();
-        process_C(lastX + d_control1X, lastY() + d_control1Y, lastX() + d_control2X, lastY() + d_control2Y, lastX() + d_endX, lastY() + d_endY);
+        process_C(lastX + d_control1X, lastY + d_control1Y, lastX + d_control2X, lastY + d_control2Y, lastX + d_endX, lastY + d_endY);
     }
 
     final void process_S(double control2X, double control2Y, double endX, double endY) {
@@ -126,7 +126,7 @@ public abstract class PathCommandHandling {
 
     final void process_q(double d_controlX, double d_controlY, double d_endX, double d_endY) {
         checkHasLast();
-        process_Q(lastX + d_controlX, lastY + d_controlY, lastX() + d_endX, lastY() + d_endY);
+        process_Q(lastX + d_controlX, lastY + d_controlY, lastX + d_endX, lastY + d_endY);
     }
 
     final void process_T(double endX, double endY) {
