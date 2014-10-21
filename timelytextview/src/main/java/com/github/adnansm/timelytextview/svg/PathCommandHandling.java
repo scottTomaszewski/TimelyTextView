@@ -1,7 +1,5 @@
 package com.github.adnansm.timelytextview.svg;
 
-import android.util.Log;
-
 import com.github.adnansm.timelytextview.model.PointD;
 import com.google.common.base.Preconditions;
 
@@ -68,7 +66,6 @@ public abstract class PathCommandHandling {
         lastX = lastX + d_endX;
         lastY = lastY + d_endY;
         nextControlPoint = new PointD(lastX + d_endX, lastY + d_endY);
-
     }
 
     final void process_H(double endX) {
@@ -95,11 +92,10 @@ public abstract class PathCommandHandling {
     }
 
     final void process_C(double control1X, double control1Y, double control2X, double control2Y, double endX, double endY) {
-        Log.d("HandleParent", control1X + " " + control1Y + " " + control2X + " " + control2Y + " " + endX + " " + endY);
         handle_C(control1X, control1Y, control2X, control2Y, endX, endY);
         lastX = endX;
         lastY = endY;
-        nextControlPoint = new PointD(endX*2 - control2X, endY*2 - control2Y);
+        nextControlPoint = new PointD(endX * 2 - control2X, endY * 2 - control2Y);
     }
 
     final void process_c(double d_control1X, double d_control1Y, double d_control2X, double d_control2Y, double d_endX, double d_endY) {
@@ -112,7 +108,7 @@ public abstract class PathCommandHandling {
         handle_S(control2X, control2Y, endX, endY);
         lastX = endX;
         lastY = endY;
-        nextControlPoint = new PointD(endX*2 - control2X, endY*2 - control2Y);
+        nextControlPoint = new PointD(endX * 2 - control2X, endY * 2 - control2Y);
     }
 
     final void process_s(double d_control2X, double d_control2Y, double d_endX, double d_endY) {
@@ -123,7 +119,7 @@ public abstract class PathCommandHandling {
 
     final void process_Q(double controlX, double controlY, double endX, double endY) {
         handle_Q(controlX, controlY, endX, endY);
-        nextControlPoint = new PointD(endX*2 - controlX, endY*2 - controlY);
+        nextControlPoint = new PointD(endX * 2 - controlX, endY * 2 - controlY);
         lastX = endX;
         lastY = endY;
     }
@@ -138,7 +134,7 @@ public abstract class PathCommandHandling {
         handle_T(endX, endY);
         lastX = endX;
         lastY = endY;
-        nextControlPoint = new PointD(endX*2 - nextControlPoint.x, endY*2 - nextControlPoint.y);
+        nextControlPoint = new PointD(endX * 2 - nextControlPoint.x, endY * 2 - nextControlPoint.y);
     }
 
     final void process_t(double d_endX, double d_endY) {
