@@ -33,7 +33,7 @@ public abstract class SvgPath {
                 ArrayList<Cubic> normalized = Lists.newArrayList();
                 for (Cubic c : toCubic.getPathAsCubics()) {
                     Log.d("SvgPath", c.toString());
-                    normalized.add(c.normalizeWithMax(unitsPerEm*2));
+                    normalized.add(c.normalizeWithMax(unitsPerEm*2).flipAlongHorizontal());
                 }
                 return normalized;
             }
