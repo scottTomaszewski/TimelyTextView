@@ -2,7 +2,6 @@ package com.github.adnansm.timelytextview.sample;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,7 +10,6 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 
 import com.github.adnansm.timelytextview.TimelyView;
-import com.github.adnansm.timelytextview.model.Characters;
 import com.nineoldandroids.animation.ObjectAnimator;
 
 public class MainActivity extends Activity {
