@@ -87,11 +87,6 @@ public class TimelyView extends View {
 
         mPath.reset();
         for (Cubic c : controlPoints) {
-            Log.d("view", c.toString());
-            Log.d("view", "" + adjust.d(c.control1X));
-            Log.d("view", "" + adjust.d(c.control1Y));
-            Log.d("view", "" + adjust.d(c.control2X));
-            Log.d("view", "" + adjust.d(c.control2Y));
             mPath.moveTo(adjust.d(c.startX), adjust.d(c.startY));
             mPath.cubicTo(
                     adjust.d(c.control1X), adjust.d(c.control1Y),
