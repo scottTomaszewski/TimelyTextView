@@ -171,29 +171,11 @@ public abstract class PathCommandHandling {
 
     protected abstract void handle_l(double d_endX, double d_endY);
 
-    protected abstract void handle_H(double endX);
-
-    protected abstract void handle_h(double d_endX);
-
-    protected abstract void handle_V(double endY);
-
-    protected abstract void handle_v(double d_endY);
-
-    protected abstract void handle_Z();
-
     protected abstract void handle_C(double control1X, double control1Y, double control2x, double control2Y, double endX, double endY);
-
-    protected abstract void handle_c(double d_control1X, double d_control1Y, double d_control2x, double d_control2Y, double d_endX, double d_endY);
 
     protected abstract void handle_S(double control2x, double control2Y, double endX, double endY);
 
-    protected abstract void handle_s(double d_control2x, double d_control2Y, double d_endX, double d_endY);
-
     protected abstract void handle_Q(double controlX, double controlY, double endX, double endY);
 
-    protected abstract void handle_q(double d_controlX, double d_controlY, double d_endX, double d_endY);
-
     protected abstract void handle_T(double endX, double endY);
-
-    protected abstract void handle_t(double d_endX, double d_endY);
 }
