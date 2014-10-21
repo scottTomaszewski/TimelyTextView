@@ -99,7 +99,7 @@ public abstract class PathCommandHandling {
         handle_C(control1X, control1Y, control2X, control2Y, endX, endY);
         lastX = endX;
         lastY = endY;
-        nextControlPoint = new PointD(endX - control2X, endY - control2Y);
+        nextControlPoint = new PointD(endX*2 - control2X, endY*2 - control2Y);
     }
 
     final void process_c(double d_control1X, double d_control1Y, double d_control2X, double d_control2Y, double d_endX, double d_endY) {
@@ -112,7 +112,7 @@ public abstract class PathCommandHandling {
         handle_S(control2X, control2Y, endX, endY);
         lastX = endX;
         lastY = endY;
-        nextControlPoint = new PointD(endX - control2X, endY - control2Y);
+        nextControlPoint = new PointD(endX*2 - control2X, endY*2 - control2Y);
     }
 
     final void process_s(double d_control2X, double d_control2Y, double d_endX, double d_endY) {
