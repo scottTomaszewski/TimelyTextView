@@ -85,23 +85,6 @@ public class TimelyView extends View {
         float minDimen = height > width ? width : height;
         Adjustment adjust = new Adjustment(minDimen);
 
-        // do the D
-//        M207 0v1462h395q350 0 532.5 -183t182.5 -534z
-//        Log.d("View", "START");
-//        mPath.reset();
-//        mPath.moveTo(adjust.d(207.0 / 2048.0), adjust.d(0));
-//        mPath.rLineTo(adjust.d(0), adjust.d(1462.0 / 2048.0));
-//        mPath.rLineTo(adjust.d(395.0 / 2048.0), adjust.d(0));
-//        mPath.rQuadTo(adjust.d(350.0 / 2048.0), adjust.d(0), adjust.d(532.5 / 2048.0), adjust.d(-183.0 / 2048.0));
-//        // last point: 1134.5, 1279
-//        mPath.rQuadTo(adjust.d((532.5 - 350.0) / 2048.0), adjust.d(-183.0 / 2048.0), adjust.d(182.5 / 2048.0), adjust.d(-534.0 / 2048.0));
-//        Log.d("View", "" + adjust.d((532.5 - 350.0) / 2048.0));
-//        Log.d("View", "" + adjust.d(-183.0 / 2048.0));
-//        Log.d("View", "" + adjust.d(182.5 / 2048.0));
-//        Log.d("View", "" + adjust.d(-534.0 / 2048.0));
-//        canvas.drawPath(mPath, mPaint);
-//        Log.d("View", "END");
-
         mPath.reset();
         for (Cubic c : controlPoints) {
             Log.d("view", c.toString());

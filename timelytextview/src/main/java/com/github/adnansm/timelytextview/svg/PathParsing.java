@@ -26,7 +26,6 @@ public class PathParsing {
         for (String command : commands) {
             // ignore command character
             List<Float> args = doubleArgsOf(command.substring(1));
-            Log.d("Parsing", args.toString());
             switch (command.charAt(0)) {
                 case 'M':
                     toCubic.process_M(args.get(0), args.get(1));
